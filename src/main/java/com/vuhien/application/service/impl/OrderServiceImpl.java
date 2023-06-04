@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vuhien.application.config.Contant.*;
+import static com.vuhien.application.config.Constant.*;
 
 @Controller
 public class OrderServiceImpl implements OrderService {

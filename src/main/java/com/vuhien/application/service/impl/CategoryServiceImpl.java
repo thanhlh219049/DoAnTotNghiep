@@ -4,7 +4,6 @@ import com.vuhien.application.entity.Category;
 import com.vuhien.application.exception.BadRequestException;
 import com.vuhien.application.exception.InternalServerException;
 import com.vuhien.application.exception.NotFoundException;
-import com.vuhien.application.model.dto.CategoryDTO;
 import com.vuhien.application.model.mapper.CategoryMapper;
 import com.vuhien.application.model.request.CreateCategoryRequest;
 import com.vuhien.application.repository.CategoryRepository;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.util.*;
 
-import static com.vuhien.application.config.Contant.LIMIT_CATEGORY;
+import static com.vuhien.application.config.Constant.LIMIT_CATEGORY;
 
 @Component
 public class CategoryServiceImpl implements CategoryService {
