@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.vuhien.application.config.Contant.MAX_AGE_COOKIE;
+import static com.vuhien.application.config.Constant.MAX_AGE_COOKIE;
 
 @Controller
 public class UserController {

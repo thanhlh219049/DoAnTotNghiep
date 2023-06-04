@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 import java.util.List;
 
-import static com.vuhien.application.config.Contant.SIZE_VN;
+import static com.vuhien.application.config.Constant.SIZE_VN;
 
 @Controller
 public class ProductController {

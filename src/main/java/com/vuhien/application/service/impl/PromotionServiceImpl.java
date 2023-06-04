@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vuhien.application.config.Contant.DISCOUNT_PERCENT;
+import static com.vuhien.application.config.Constant.DISCOUNT_PERCENT;
 
 @Component
 public class PromotionServiceImpl implements PromotionService {

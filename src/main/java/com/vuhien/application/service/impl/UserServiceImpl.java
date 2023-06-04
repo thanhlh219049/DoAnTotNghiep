@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vuhien.application.config.Contant.LIMIT_USER;
+import static com.vuhien.application.config.Constant.LIMIT_USER;
 
 @Component
 public class UserServiceImpl implements UserService {

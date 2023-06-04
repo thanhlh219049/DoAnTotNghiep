@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vuhien.application.config.Contant.*;
+import static com.vuhien.application.config.Constant.*;
 
 @Controller
 public class HomeController {

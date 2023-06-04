@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.vuhien.application.config.Contant.*;
+import static com.vuhien.application.config.Constant.*;
 
 @Controller
 public class OrderController {
