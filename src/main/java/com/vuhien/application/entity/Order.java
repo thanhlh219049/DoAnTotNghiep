@@ -49,7 +49,7 @@ import java.sql.Timestamp;
 @NamedNativeQuery(
         name = "getListOrderOfPersonByStatus",
         resultSetMapping = "orderInfoDTO",
-        query = "SELECT od.id, od.total_price, od.size size_vn, p.name product_name, (p.images ->> '$[0]') as product_img " +
+        query = "SELECT od.id, od.total_price, od.size size_vn, p.name product_name, JSON_VALUE(p.images ,'$[0]')  as product_img " +
                 "FROM orders od " +
                 "INNER JOIN product p " +
                 "ON od.product_id = p.id " +
