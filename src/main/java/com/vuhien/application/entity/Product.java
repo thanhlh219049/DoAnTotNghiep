@@ -41,23 +41,23 @@ import java.util.List;
                 }))
 })
 
-@NamedNativeQuery(name = "getListNewProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, p.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "getListNewProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, JSON_VALUE(p.images ,'$[0]' )  AS images "
                 +
                 "FROM product p WHERE p.status = 1 " +
                 "order by p.created_at DESC limit ?1")
-@NamedNativeQuery(name = "getListBestSellProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, p.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "getListBestSellProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, JSON_VALUE(p.images ,'$[0]' )  AS images "
                 +
                 "FROM product p " +
                 "WHERE p.status = 1 " +
                 "ORDER BY total_sold DESC LIMIT ?1")
 
-@NamedNativeQuery(name = "getListViewProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, p.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "getListViewProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, JSON_VALUE(p.images ,'$[0]' )  AS images "
                 +
                 "FROM product p " +
                 "WHERE p.status = 1 " +
                 "ORDER BY product_view DESC LIMIT ?1")
 
-@NamedNativeQuery(name = "getRelatedProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, p.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "getRelatedProducts", resultSetMapping = "productInfoDto", query = "SELECT p.id, p.name, p.sale_price as price, p.product_view as views, p.slug, p.total_sold, JSON_VALUE(p.images ,'$[0]' )  AS images "
                 +
                 "FROM product p " +
                 "WHERE p.status = 1 " +
@@ -72,7 +72,7 @@ import java.util.List;
                 "FROM product p")
 @NamedNativeQuery(name = "searchProductBySize", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT d.* " +
                 "FROM (" +
-                "SELECT DISTINCT product.id, product.name, product.slug, product.sale_price as price, product.product_view as views, product.total_sold, product.images ->> '$[0]' AS images "
+                "SELECT DISTINCT product.id, product.name, product.slug, product.sale_price as price, product.product_view as views, product.total_sold, JSON_VALUE(product.images ,'$[0]')  AS images "
                 +
                 "FROM product " +
                 "INNER JOIN product_category " +
@@ -84,7 +84,7 @@ import java.util.List;
                 "WHERE product_size.size IN (?5) " +
                 "LIMIT ?6 " +
                 "OFFSET ?7")
-@NamedNativeQuery(name = "searchProductAllSize", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT product.id, product.name, product.slug, product.sale_price as price, product.product_view as views, product.total_sold, product.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "searchProductAllSize", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT product.id, product.name, product.slug, product.sale_price as price, product.product_view as views, product.total_sold, JSON_VALUE(product.images ,'$[0]')  AS images "
                 +
                 "FROM product " +
                 "INNER JOIN product_category " +
@@ -93,7 +93,7 @@ import java.util.List;
                 "AND product.price > ?3 AND product.price < ?4 " +
                 "LIMIT ?5 " +
                 "OFFSET ?6")
-@NamedNativeQuery(name = "searchProductByKeyword", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT p.id, p.name, p.slug, p.sale_price as price, p.product_view as views, p.total_sold, p.images ->> '$[0]' AS images "
+@NamedNativeQuery(name = "searchProductByKeyword", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT p.id, p.name, p.slug, p.sale_price as price, p.product_view as views, p.total_sold, JSON_VALUE(p.images ,'$[0]')  AS images "
                 +
                 "FROM product p " +
                 "INNER JOIN product_category pc " +
