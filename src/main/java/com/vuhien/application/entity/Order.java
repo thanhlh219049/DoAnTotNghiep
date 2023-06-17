@@ -61,7 +61,7 @@ import java.sql.Timestamp;
         resultSetMapping = "orderDetailDto",
         query = "SELECT orders.id, orders.total_price, orders.size size_vn, product.name product_name, orders.price as product_price, " +
                 "orders.receiver_name, orders.receiver_phone, orders.receiver_address, orders.status, " +
-                "product.images ->> \"$[0]\" as product_img " +
+                "JSON_VALUE(product.images, '$[0]') as product_img " +
                 "FROM orders " +
                 "INNER JOIN product " +
                 "ON orders.product_id = product.id " +
