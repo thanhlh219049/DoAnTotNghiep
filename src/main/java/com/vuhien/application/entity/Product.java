@@ -67,7 +67,7 @@ import java.util.List;
 @NamedNativeQuery(name = "getAllProduct", resultSetMapping = "shortProductInfoDTO", query = "SELECT p.id, p.name FROM product p")
 @NamedNativeQuery(name = "getAllBySizeAvailable", resultSetMapping = "productInfoAndAvailableSize", query = "SELECT p.id, p.name, p.sale_price as price, "
                 +
-                "(SELECT JSON_ARRAYAGG(ps.size) FROM product_size ps WHERE ps.product_id = p.id AND ps.quantity > 0) AS sizes "
+                "(SELECT JSON_ARRAYAGG(ps.size) FROM product_size ps WHERE ps.product_id = p.id AND ps.quantity > 0 ) AS sizes "
                 +
                 "FROM product p")
 @NamedNativeQuery(name = "searchProductBySize", resultSetMapping = "productInfoDto", query = "SELECT DISTINCT d.* " +
