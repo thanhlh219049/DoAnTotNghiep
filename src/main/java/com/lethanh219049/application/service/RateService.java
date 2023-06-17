@@ -1,7 +1,7 @@
-//package com.vuhien.application.service;
+//package com.lethanh219049.application.service;
 //
-//import com.vuhien.application.entity.Rate;
-//import com.vuhien.application.model.request.CreateRateProductRequest;
+//import com.lethanh219049.application.entity.Rate;
+//import com.lethanh219049.application.model.request.CreateRateProductRequest;
 //import org.springframework.stereotype.Service;
 //
 //import java.util.List;
