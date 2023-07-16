@@ -78,7 +78,7 @@ public class SendEmailListener {
                 log.info("============Chay vao service gui mail kafka =============================");
 //                emailSenderService.sendEmail(user.getEmail(),taskBatch, user);
             } catch (Exception e) {
-                log.info("================================ chay loi khi nhan topic gui mail================");
+                log.info("chay loi khi nhan topic gui mail: "+e);
                 if(taskBatch.getRetry() > 0){
                     taskBatch.setRetry(taskBatch.getRetry() - 1L);
                     taskBatchRepository.save(taskBatch);

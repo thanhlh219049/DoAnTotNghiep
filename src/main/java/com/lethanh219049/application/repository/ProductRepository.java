@@ -21,6 +21,9 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     //Lấy sản phẩm theo tên
     Product findByName(String name);
 
+    //Lấy sản phẩm theo id
+    Product findById(Long id);
+
     //Lấy tất cả sản phẩm
     @Query(value = "SELECT * FROM product pro right join (SELECT DISTINCT p.* FROM product p " +
             "INNER JOIN product_category pc ON p.id = pc.product_id " +

@@ -23,7 +23,12 @@ import com.lethanh219049.application.service.ProductService;
 import com.lethanh219049.application.service.PromotionService;
 import com.lethanh219049.application.utils.PageUtil;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +36,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.lethanh219049.application.config.Constant.*;
 
@@ -430,4 +438,83 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
+
+    @Override
+    public ByteArrayResource exportExcel()  {
+        // create a new Excel workbook
+        Workbook workbook = new XSSFWorkbook();
+        ByteArrayResource resource = null;
+        int rowCount = 1;
+        try {
+
+                //Set header
+                Sheet sheet = workbook.createSheet("Danh sách sản phẩm");
+                Row row = sheet.createRow(0);
+                row.createCell(0).setCellValue("Mã sản phẩm");
+                row.createCell(1).setCellValue("Tên sản phẩm");
+                row.createCell(2).setCellValue("Nhãn hiệu");
+                row.createCell(3).setCellValue("Giá nhập");
+                row.createCell(4).setCellValue("Giá bán");
+                row.createCell(5).setCellValue("Số Lượng đã bán");
+
+                //Set body
+                List<Product> products = productRepository.findAll();
+                if (!products.isEmpty()) {
+                    for (Product record : products) {
+                        row = sheet.createRow(rowCount++);
+                        int columnCount = 0;
+                        row.createCell(columnCount++).setCellValue(record.getId());
+                        row.createCell(columnCount++).setCellValue(record.getName());
+                        row.createCell(columnCount++).setCellValue(record.getBrand().getName());
+                        row.createCell(columnCount++).setCellValue(record.getPrice());
+                        row.createCell(columnCount++).setCellValue(record.getSalePrice());
+                        row.createCell(columnCount++).setCellValue(record.getTotalSold());
+                    }
+                }
+
+                // write the workbook to a byte array
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                workbook.write(outputStream);
+                byte[] excelData = outputStream.toByteArray();
+                resource = new ByteArrayResource(excelData);
+
+                //todo: xu lay sau nay neu muon them y/c lay ra tung loai san pham
+
+//                    //Set header
+//                    Sheet sheet = workbook.createSheet("Danh sách sản phẩm");
+//                    Row row = sheet.createRow(0);
+//                    row.createCell(0).setCellValue("Mã sản phẩm");
+//                    row.createCell(1).setCellValue("Tên sản phẩm");
+//                    row.createCell(2).setCellValue("Nhãn hiệu");
+//                    row.createCell(3).setCellValue("Giá nhập");
+//                    row.createCell(4).setCellValue("Giá bán");
+//                    row.createCell(5).setCellValue("Số Lượng đã bán");
+//
+//                    //Set body
+//                    Product products = productRepository.findById(id);
+//                    if (products != null) {
+//
+//                        row = sheet.createRow(rowCount++);
+//                        int columnCount = 0;
+//                        row.createCell(columnCount++).setCellValue(products.getId());
+//                        row.createCell(columnCount++).setCellValue(products.getName());
+//                        row.createCell(columnCount++).setCellValue(products.getBrand().getName());
+//                        row.createCell(columnCount++).setCellValue(products.getPrice());
+//                        row.createCell(columnCount++).setCellValue(products.getSalePrice());
+//                        row.createCell(columnCount++).setCellValue(products.getTotalSold());
+//
+//                    }
+//
+//                    // write the workbook to a byte array
+//                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                    workbook.write(outputStream);
+//                    byte[] excelData = outputStream.toByteArray();
+//                    resource = new ByteArrayResource(excelData);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+        return resource;
+    }
+
 }

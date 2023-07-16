@@ -35,15 +35,6 @@ public class KafkaConfig {
     @Value("${kafka.bootstrap-servers-consumer}")
     private String bootstrapServersConsumer;
 
-    private static final String ack = "kafka.acks";
-
-    private static final String enableAutoCommit = "kafka.consumer.enable_auto_commit";
-
-    private static final String timeCommitInterval = "kafka.consumer.auto_commit_interval_ms";
-
-    private static final String groupId = "kafka.consumer.group_id";
-    private static final String configDeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
-
     @Bean
     public KafkaService kafkaService() {
         return new KafkaService();
@@ -102,12 +93,12 @@ public class KafkaConfig {
 
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServersConsumer);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "send-email-consumer");
-        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, String.valueOf(100));
+//        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, String.valueOf(100));
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 300000);
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, configDeserializer);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, configDeserializer);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         //================================================================================= 3 consumer tro vao 3 partition
         // Create consumers

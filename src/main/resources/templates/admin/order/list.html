@@ -18,7 +18,7 @@
 <body>
 <section role="main" class="content-body" id="main-content">
     <header class="page-header">
-        <!--        <h2>Editable Tables</h2>-->
+<!--                <h2>Editable Tables</h2>-->
         <div class="right-wrapper text-right">
             <ol class="breadcrumbs">
                 <li>
@@ -104,8 +104,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="order : ${orderPage}">
-                    <tr>
+                <th:block th:each="order : ${orderPage} ">
+                    <tr th:onclick="'window.location.href=\'/admin/orders/update/' + ${order.id} + '\''">
                         <td>
                             <a th:href="@{/admin/orders/update/{id}(id=${order.id})}" th:text="${order.id}"></a>
                         </td>

@@ -21,14 +21,6 @@ public class KafkaSender {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String message, String topicName) {
-        kafkaTemplate.send(topicName, message);
-    }
-
-    public void sendLongMessage(Long number, String topicName) {
-        kafkaTemplate.send(topicName, number);
-    }
-
     public void sendObject(String topicName, Object key, Object message) {
         log.info("vao check du lieu" + topicName + " - " + key + " - " + message);
         kafkaTemplate.send(topicName, key, message);

@@ -1,24 +1,14 @@
 package com.lethanh219049.application.service.impl;
 
-import com.google.gson.Gson;
-import com.lethanh219049.application.entity.*;
 import com.lethanh219049.application.repository.SettingRepository;
 import com.lethanh219049.application.repository.TaskBatchDoneRepository;
 import com.lethanh219049.application.repository.TaskBatchRepository;
 import com.lethanh219049.application.repository.UserRepository;
 import com.lethanh219049.application.service.BaseService;
-import com.lethanh219049.application.utils.BeanCopyUtils;
-import com.lethanh219049.application.utils.CommonPassWord;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-
-import static javax.management.remote.JMXConnectionNotification.FAILED;
 
 
 @Service
