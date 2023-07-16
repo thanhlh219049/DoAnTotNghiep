@@ -11,6 +11,8 @@ import com.lethanh219049.application.model.request.CreateProductRequest;
 import com.lethanh219049.application.model.request.CreateSizeCountRequest;
 import com.lethanh219049.application.model.request.FilterProductRequest;
 import com.lethanh219049.application.model.request.UpdateFeedBackRequest;
+import javassist.bytecode.ByteArray;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -90,4 +92,5 @@ public interface ProductService {
     //Lấy tất cả sản phẩm
     List<Product> getAllProduct();
 
+    ByteArrayResource exportExcel();
 }

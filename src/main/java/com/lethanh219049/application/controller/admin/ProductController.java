@@ -11,7 +11,10 @@ import com.lethanh219049.application.service.CategoryService;
 import com.lethanh219049.application.service.ImageService;
 import com.lethanh219049.application.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.lethanh219049.application.config.Constant.SIZE_VN;
@@ -164,6 +168,17 @@ public class ProductController {
         productService.updatefeedBackImages(id, req);
 
         return ResponseEntity.ok("Cập nhật thành công");
+    }
+
+
+    //Export excel so thue bao
+    @GetMapping("/api/products/export/excel")
+    public ResponseEntity<?> exportIntoExcelFile() throws IOException {
+        ByteArrayResource resource = productService.exportExcel();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=Danh_sach_san_pham.xlsx")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 
 }
