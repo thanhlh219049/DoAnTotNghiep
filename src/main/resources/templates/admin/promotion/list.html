@@ -64,7 +64,7 @@
                     <th>Giá trị</th>
                     <th>Ngày hết hạn</th>
                 </tr>
-                <tr class="heading-search">
+                <tr class="heading-search" >
                     <form  method="GET" id="search-form">
                         <th>
                             <input type="text" name="code" id="code" class="form-control search-input">
@@ -94,7 +94,7 @@
                 </thead>
                 <tbody>
                 <th:block th:each="promotion : ${promotionPage}">
-                    <tr>
+                    <tr th:onclick="'window.location.href=\'/admin/promotions/update/' + ${promotion.id} + '\''">
                         <td>
                             <a th:href="@{/admin/promotions/update/{id}(id=${promotion.id})}"
                                th:text="${promotion.couponCode}"></a>
