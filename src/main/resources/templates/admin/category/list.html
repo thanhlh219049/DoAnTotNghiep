@@ -112,7 +112,7 @@
                         <td th:text="${#dates.format(category.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
                         <td th:text="${#dates.format(category.modifiedAt, 'dd-MM-yyyy HH:mm')}"></td>
                         <td class="actions">
-                            <a href="#" class="on-default edit-row edit-category" th:data-id="${category.id}"><i
+                            <a href="#" id="btn-edit-category" class="on-default edit-row edit-category" th:data-id="${category.id}"><i
                                     class="fas fa-pencil-alt"></i></a>
                             <a href="#" id="btn-delete-category" class="on-default remove-row delete-category"
                                th:data-id="${category.id}"><i
@@ -184,7 +184,7 @@
                             </label>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                <button type="submit" class="btn btn-primary">Sửa</button>
+                                <button type="submit" class="btn btn-primary btn-update-category">Sửa</button>
                             </div>
                         </form>
                     </div>
@@ -321,10 +321,12 @@
                 }
                 let name = $("#update_category").val();
                 req = {
+                    id: idCategory,
                     name: name,
                     status: status
                 }
-                let myJson = JSON.stringify(req)
+
+                var myJson = JSON.stringify(req)
                 $.ajax({
                     url: "/api/admin/categories/" +idCategory,
                     type: 'PUT',
@@ -341,7 +343,6 @@
                 });
             }
         })
-
 
         $(".delete-category").on("click", function () {
             let id = $(this).data("id");
