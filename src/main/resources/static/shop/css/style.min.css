@@ -2774,6 +2774,7 @@ a:focus {
 }
 
 .icon-user-2:before {
+    color: #ffffff;
     content: '\e91a'
 }
 

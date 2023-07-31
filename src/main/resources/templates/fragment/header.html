@@ -1,5 +1,6 @@
 <th:block th:fragment="header">
-    <header class="header">
+    <header class="header bg-dark">
+        <link rel="stylesheet" href="styles.css">
         <div class="header-middle">
             <div class="container">
                 <div class="header-left col-lg-2 w-auto pl-0">
@@ -7,7 +8,7 @@
                         <i class="icon-menu"></i>
                     </button>
                     <a href="/" class="logo">
-                        <img th:src="@{https://thuthuatnhanh.com/wp-content/uploads/2020/01/tong-hop-hinh-nen-den-dep-nhat.jpg}"  alt="logo">
+                        <img th:src="@{/shop/images/slider/zyro-image.png}"  alt="logo" >
                     </a>
                 </div><!-- End .header-left -->
 
@@ -21,30 +22,29 @@
                     </div><!-- End .header-search -->
 
                     <div class="header-contact d-none d-lg-flex pl-4 ml-3 mr-xl-5 pr-4">
-                        <img alt="phone" th:src="@{/shop/images/phone.png}" width="30" height="30" class="pb-1">
-                        <h6>Hotline<a href="tel:#" class="text-dark font1">0372241997</a></h6>
+                        <img alt="phone" th:src="@{/shop/images/icon-phone.png}" width="30" height="30" class="pb-1">
+                        <h6 class="text-white font1">Hotline<a href="tel:#" class="text-white font1">0372241997</a></h6>
                     </div>
 
-                    <a href="" data-toggle="modal" data-target="#exampleModal" class="header-icon account-setting"><i class="icon-user-2"></i></a>
+                    <a href="" data-toggle="modal" data-target="#exampleModal" class=".header-icon account-setting"  ><i class="icon-user-2" ></i></a>
+
 
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
         </div><!-- End .header-middle -->
 
-        <div class="header-bottom sticky-header d-none d-lg-block">
-            <div class="container">
+        <div class="header-bottom sticky-header d-none d-lg-block bg-dark">
+            <div class="container ">
                 <nav class="main-nav w-100">
                     <ul class="menu">
-                        <li class="active">
-                            <a href="/">Trang chủ</a>
-                        </li>
+                        <li ><a href="/" class="text-white font1">Trang chủ</a></li>
 <!--                        <th:block th:each="brand : ${brands}">-->
 <!--                            <li><a href="/" th:text="${brand.name}">Trang chủ</a></li>-->
 <!--                        </th:block>-->
-                        <li class="float-right mr-0"><a href="/lien-he" class="px-4">Liên hệ</a></li>
-                        <li class="float-right"><a href="/doi-hang">Chính sách</span></a></li>
-                        <li class="float-right"><a href="/tin-tuc">Tin tức</a></li>
-                        <li class="float-right"><a href="/san-pham">Sản phẩm</a></li>
+                        <li class="float-right mr-0"><a href="/lien-he"  class="text-white font1">Liên hệ</a></li>
+                        <li class="float-right"><a href="/doi-hang" class="text-white font1">Chính sách</span></a></li>
+                        <li class="float-right"><a href="/tin-tuc" class="text-white font1">Tin tức</a></li>
+                        <li class="float-right"><a href="/san-pham" class="text-white font1">Sản phẩm</a></li>
                     </ul>
                 </nav>
             </div><!-- End .container -->
