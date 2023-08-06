@@ -8222,7 +8222,7 @@ footer .contact-info-label {
 }
 
 .header-middle {
-    padding: 2.7rem 0
+    padding: 1.5rem 0
 }
 
 .header-bottom .container:before {
@@ -12155,4 +12155,36 @@ section {
     }
 }
 
-/*# sourceMappingURL=style.min.css.map */
+/* Thiết lập kích thước và độ cao cho announcement bar */
+.announcement-bar-spp {
+  overflow: hidden;
+  width: 100%;
+  height: 40px; /* Điều chỉnh độ cao phù hợp với nội dung */
+  line-height: 40px; /* Điều chỉnh độ cao giữa các dòng */
+  box-sizing: border-box;
+  /* Sử dụng Flexbox để căn giữa nội dung */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hiển thị mỗi thẻ <a> trên một dòng */
+.vertical-scrolling-text a {
+  display: block;
+}
+
+/* Tạo animation phần 1 - từ 0% đến 50% */
+@keyframes scroll-up-part1 {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Áp dụng animation và delay */
+.vertical-scrolling-text {
+  /* Phần 1 chạy từ 0% đến 50% */
+  animation: scroll-up-part1 10s linear infinite;
+}
