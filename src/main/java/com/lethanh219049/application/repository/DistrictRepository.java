@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface DistrictRepository extends JpaRepository<District, Long> {
-    List<District> findByProvince(Long provinceId);
+    @Query(nativeQuery = true, value = "SELECT * FROM district where province_id= :provinceId")
+    List<District> findByProvinceDistrict(Long provinceId);
 
     @Query(nativeQuery = true, value = "SELECT * FROM District where id= :id")
     District getDistrict(Long id);

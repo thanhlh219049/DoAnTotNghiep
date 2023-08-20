@@ -112,7 +112,7 @@
 
                             <div class="form-group required-field">
                                 <label>Chọn Tỉnh Thành:</label>
-                                <select id="receiver_city" name="receiver_city" class="form-control" th:onchange="loadDistricts()">
+                                <select id="receiver_city" name="receiver_city" class="form-control" >
 <!--                                    <option value="">-&#45;&#45; Chọn Tỉnh Thành: -&#45;&#45;</option>-->
                                     <option th:each="province : ${provinces}" th:value="${province.id}" th:text="${province.name}"></option>
                                 </select>
@@ -121,7 +121,7 @@
 
                             <div class="form-group required-field">
                                 <label>Chọn Quận / Huyện:</label>
-                                <select id="receiver_district" name="receiver_district" class="form-control" th:onchange="loadWards()">
+                                <select id="receiver_district" name="receiver_district" class="form-control" th:onchange="loadDistricts()">
 <!--                                    <option value="">-&#45;&#45; Chọn Quận / Huyện: -&#45;&#45;</option>-->
                                     <option th:each="district : ${districts}" th:value="${district.id}" th:text="${district.name}"></option>
                                 </select>
@@ -130,7 +130,7 @@
 
                             <div class="form-group required-field">
                                 <label>Chọn Xã / Phường:</label>
-                                <select id="receiver_ward" name="receiver_ward" class="form-control" >
+                                <select id="receiver_ward" name="receiver_ward" class="form-control" th:onchange="loadWards()" >
 <!--                                    <option value="">-&#45;&#45; Chọn Xã / Phường: -&#45;&#45;</option>-->
                                     <option th:each="ward : ${wards}" th:value="${ward.id}" th:text="${ward.name}"></option>
                                 </select>

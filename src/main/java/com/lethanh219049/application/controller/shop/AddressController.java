@@ -43,8 +43,8 @@ public class AddressController {
         return "shop/payment"; // Tên của template Thymeleaf
     }
 
-    @GetMapping("/districts/{provinceId}")
-    public String getDistricts(@PathVariable Long provinceId, Model model, @RequestParam String id) {
+    @GetMapping("/districts/{selectedCityId}")
+    public String getDistricts(@PathVariable Long selectedCityId, Model model, @RequestParam String id) {
         // Lấy chi tiết sản phẩm
         DetailProductInfoDTO product;
         try {
@@ -55,13 +55,13 @@ public class AddressController {
             return "error/500";
         }
         model.addAttribute("product", product);
-        List<District> districts = addressService.getDistrictsByProvince(provinceId);
+        List<District> districts = addressService.getDistrictsByProvince(selectedCityId);
         model.addAttribute("districts", districts);
         return "shop/payment"; // Tên của template Thymeleaf
     }
 
-    @GetMapping("/wards/{districtId}")
-    public String getWards(@PathVariable Long districtId, Model model, @RequestParam String id) {
+    @GetMapping("/wards/{selectedDistrictId}")
+    public String getWards(@PathVariable Long selectedDistrictId, Model model, @RequestParam String id) {
         // Lấy chi tiết sản phẩm
         DetailProductInfoDTO product;
         try {
@@ -72,7 +72,7 @@ public class AddressController {
             return "error/500";
         }
         model.addAttribute("product", product);
-        List<Wards> wards = addressService.getWardsByDistrict(districtId);
+        List<Wards> wards = addressService.getWardsByDistrict(selectedDistrictId);
         model.addAttribute("wards", wards);
         return "shop/payment"; // Tên của template Thymeleaf
     }

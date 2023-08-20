@@ -28,11 +28,11 @@ public class AddressService {
     }
 
     public List<District> getDistrictsByProvince(Long provinceId) {
-        return districtRepository.findByProvince(provinceId);
+        return districtRepository.findByProvinceDistrict(provinceId);
     }
 
     public List<Wards> getWardsByDistrict(Long districtId) {
-        return wardRepository.findByDistrict(districtId);
+        return wardRepository.findByDistrictWards(districtId);
     }
 
     public Province getProvinceById(Long provinceId) {
