@@ -79,7 +79,11 @@
                                                   th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') +' đ'}"></span>
                                         </th:block>
                                     </div><!-- End .price-box -->
+                                    <div class="product-action">
+                                        <button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal">Mua hàng</button>
+                                    </div>
                                 </div><!-- End .product-details -->
+
                             </div>
                         </div><!-- End .col-sm-4 -->
                     </th:block>

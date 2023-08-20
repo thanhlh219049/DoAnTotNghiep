@@ -14,6 +14,8 @@
     <th:block id="css-resources">
         <link rel="stylesheet" th:href="@{/shop/css/custom.css}">
     </th:block>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <main class="main" id="main-content">
@@ -107,6 +109,34 @@
                                 <textarea type="text" class="form-control" th:text="${user_address}" name="receiver_address" id="receiver_address" required></textarea>
                                 <div class="invalid-feedback"></div>
                             </div><!-- End .form-group -->
+
+                            <div class="form-group required-field">
+                                <label>Chọn Tỉnh Thành:</label>
+                                <select id="receiver_city" name="receiver_city" class="form-control" th:onchange="loadDistricts()">
+<!--                                    <option value="">-&#45;&#45; Chọn Tỉnh Thành: -&#45;&#45;</option>-->
+                                    <option th:each="province : ${provinces}" th:value="${province.id}" th:text="${province.name}"></option>
+                                </select>
+<!--                                <div class="invalid-feedback"></div>-->
+                            </div>
+
+                            <div class="form-group required-field">
+                                <label>Chọn Quận / Huyện:</label>
+                                <select id="receiver_district" name="receiver_district" class="form-control" th:onchange="loadWards()">
+<!--                                    <option value="">-&#45;&#45; Chọn Quận / Huyện: -&#45;&#45;</option>-->
+                                    <option th:each="district : ${districts}" th:value="${district.id}" th:text="${district.name}"></option>
+                                </select>
+<!--                                <div class="invalid-feedback"></div>-->
+                            </div>
+
+                            <div class="form-group required-field">
+                                <label>Chọn Xã / Phường:</label>
+                                <select id="receiver_ward" name="receiver_ward" class="form-control" >
+<!--                                    <option value="">-&#45;&#45; Chọn Xã / Phường: -&#45;&#45;</option>-->
+                                    <option th:each="ward : ${wards}" th:value="${ward.id}" th:text="${ward.name}"></option>
+                                </select>
+<!--                                <div class="invalid-feedback"></div>-->
+                            </div>
+
 
                             <div class="form-group">
                                 <label>Ghi chú </label>
@@ -240,6 +270,11 @@
             let receiverAddress = $('#receiver_address').val();
             let notes = $('#notes').val();
             let isValid = true;
+
+            // Lấy giá trị từ các trường select
+            let receiverCity = $('#receiver_city').val();
+            let receiverDistrict = $('#receiver_district').val();
+            let receiverWard = $('#receiver_ward').val();
             if (receiverName.length == 0) {
                 fullNameInvalid = $('#receiver_name').next();
                 fullNameInvalid.css('display', 'block');
@@ -265,6 +300,24 @@
                 addressInvalid.html('Vui lòng nhập địa chỉ nhận hàng');
                 isValid = false;
             }
+            if (receiverCity.length == 0) {
+                addressInvalid = $('#receiver_city').next();
+                addressInvalid.css('display', 'block');
+                addressInvalid.html('Vui lòng chọn chọn tỉnh');
+                isValid = false;
+            }
+            if (receiverDistrict.length == 0) {
+                addressInvalid = $('#receiver_district').next();
+                addressInvalid.css('display', 'block');
+                addressInvalid.html('Vui lòng chọn quận / huyện');
+                isValid = false;
+            }
+            if (receiverWard.length == 0) {
+                addressInvalid = $('#receiver_ward').next();
+                addressInvalid.css('display', 'block');
+                addressInvalid.html('Vui lòng chọn thị xã');
+                isValid = false;
+            }
             let size = $('.size-choose').data("id");
             if (size == null || size == "") {
                 $('.not-found-size').show();
@@ -278,6 +331,9 @@
                     receiver_name: receiverName,
                     receiver_phone: receiverPhone,
                     receiver_address: receiverAddress,
+                    receiver_city: receiverCity,
+                    receiver_district: receiverDistrict,
+                    receiver_ward: receiverWard,
                     coupon_code: couponCode,
                     total_price: totalPrice,
                     product_price: price,
@@ -300,9 +356,43 @@
                     },
                 });
             }
-        })
+            });
+
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    function loadDistricts() {
+        const selectedCityId = document.getElementById('receiver_city').value;
+        if (selectedCityId) {
+            fetch(`/districts/${selectedCityId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const districtSelect = document.getElementById('receiver_district');
+                    districtSelect.innerHTML = '<option value="">--- Chọn Quận / Huyện: ---</option>';
+                    data.forEach(district => {
+                        districtSelect.innerHTML += `<option value="${district.id}">${district.name}</option>`;
+                    });
+                });
+        }
+    }
+
+    function loadWards() {
+        const selectedDistrictId = document.getElementById('receiver_district').value;
+        if (selectedDistrictId) {
+            fetch(`/wards/${selectedDistrictId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const wardSelect = document.getElementById('receiver_ward');
+                    wardSelect.innerHTML = '<option value="">--- Chọn Xã / Phường: ---</option>';
+                    data.forEach(ward => {
+                        wardSelect.innerHTML += `<option value="${ward.id}">${ward.name}</option>`;
+                    });
+                });
+        }
+    }
+</script>
+
 </th:block>
 </body>
 </html>

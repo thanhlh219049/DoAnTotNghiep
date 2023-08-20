@@ -93,6 +93,9 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(ORDER_STATUS);
         order.setQuantity(1);
         order.setProduct(product.get());
+        order.setReceiverCity(createOrderRequest.getReceiverCity());
+        order.setReceiverDistrict(createOrderRequest.getReceiverDistrict());
+        order.setReceiverWard(createOrderRequest.getReceiverWard());
 
         orderRepository.save(order);
         return order;

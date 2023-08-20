@@ -1,5 +1,6 @@
 package com.lethanh219049.application.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lethanh219049.application.model.dto.OrderDetailDTO;
 import com.lethanh219049.application.model.dto.OrderInfoDTO;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @SqlResultSetMappings(
@@ -84,6 +87,12 @@ public class Order {
     private String receiverPhone;
     @Column(name = "receiver_address")
     private String receiverAddress;
+    @Column(name ="receiver_city")
+    private String receiverCity;
+    @Column(name ="receiver_district")
+    private String receiverDistrict;
+    @Column(name ="receiver_ward")
+    private String receiverWard;
     @Column(name = "note")
     private String note;
     @Column(name = "price")

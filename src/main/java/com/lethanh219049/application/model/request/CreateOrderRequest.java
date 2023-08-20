@@ -35,6 +35,21 @@ public class CreateOrderRequest {
     @JsonProperty("receiver_address")
     private String receiverAddress;
 
+    @NotNull(message = "Địa chỉ trống")
+    @NotEmpty(message = "Địa chỉ trống")
+    @JsonProperty("receiver_city")
+    private String receiverCity;
+
+    @NotNull(message = "Địa chỉ trống")
+    @NotEmpty(message = "Địa chỉ trống")
+    @JsonProperty("receiver_district")
+    private String receiverDistrict;
+
+    @NotNull(message = "Địa chỉ trống")
+    @NotEmpty(message = "Địa chỉ trống")
+    @JsonProperty("receiver_ward")
+    private String receiverWard;
+
     @JsonProperty("coupon_code")
     private String couponCode;
 
