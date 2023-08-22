@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                                     ~{:: title},
+                                                                    'header',
+                                                                    'footer',
+                                                                     ~{:: #css-resources},
+                                                                     ~{:: #js-resources},
+                                                                     ~{:: #main-content}
+                                                                    )}">
+<head>
+  <meta charset="UTF-8">
+  <title>Hướng dẫn mua hàng</title>
+  <th:block id="css-resources">
+
+  </th:block>
+</head>
+<body>
+<div th:fragment="standard_modal" class="modal fade text-center" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle">Warning</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <span id="modalBody"></span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!--Add Cart Modal&ndash;&gt;-->

@@ -2873,9 +2873,7 @@ form h2 {
 }
 
 .form-control {
-    height: 6rem;
-    margin-bottom: 1rem;
-    padding: 2rem;
+    padding: 1.5rem;
     transition: all .3s;
     border: 1px solid #dfdfdf;
     border-radius: 0;
@@ -12154,5 +12152,7 @@ section {
         font-size: 2.5vw
     }
 }
-
+.icon-dark {
+    color: #333; /* Đổi màu này thành màu đen hoặc xám bạn mong muốn */
+}
 /*# sourceMappingURL=style.min.css.map */

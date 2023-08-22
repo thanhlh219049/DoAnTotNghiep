@@ -7,6 +7,7 @@ import com.lethanh219049.application.model.request.ChangePasswordRequest;
 import com.lethanh219049.application.model.request.CreateUserRequest;
 import com.lethanh219049.application.model.request.UpdateProfileRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface UserService {
     void changePassword(User user, ChangePasswordRequest changePasswordRequest);
 
     User updateProfile(User user, UpdateProfileRequest updateProfileRequest);
+
+    User getCurrentlyLoggedInCustomer(Authentication authentication);
 }

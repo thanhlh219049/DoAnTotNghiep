@@ -163,5 +163,11 @@ public class Product {
         private List<Comment> comments;
 
         // @OneToMany(mappedBy = "product")
+
+        public ArrayList<String> getImages() {
+                if (images.isEmpty() || id == null) return null;
+
+                return images;
+        }
         // private List<Rate> rates;
 }

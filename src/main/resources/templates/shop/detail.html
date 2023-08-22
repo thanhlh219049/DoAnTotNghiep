@@ -125,38 +125,42 @@
                             </button>
                         </div>
 <!--                        kiểm tra laại việc khai báo class but-btn-->
-                        <div class="buy-now">
-                            <button class="btn btn-primary buy red-btn" th:classappend="${canBuy} == true ? '' : 'not-buy'">
-                                <div class="ask-text left-content">
-                                    <th:block th:if="${product.promotionPrice}">
-                                        <div class="ask-desc sub-content old-price"><span class="text-price" th:text="${product.price}"></span> &#x20AB;</div>
-                                        <div class="ask-price "><span class="text-price" th:text="${product.promotionPrice}"></span> &#x20AB;</div>
-                                    </th:block>
-                                    <th:block th:unless="${product.promotionPrice}">
-                                        <div class="ask-desc sub-content">Giá bán ưu đãi</div>
-                                        <div class="ask-price "><span class="text-price" th:text="${product.price}"></span> &#x20AB;</div>
-                                    </th:block>
-                                </div>
-                                <div class="buy-text right-content">
-                                    <div class="buy-now ">Mua ngay</div>
-                                </div>
-                            </button>
+<!--                        <div class="buy-now">-->
+<!--                            <button class="btn btn-primary buy red-btn" th:classappend="${canBuy} == true ? '' : 'not-buy'">-->
+<!--                                <div class="ask-text left-content">-->
+<!--                                    <th:block th:if="${product.promotionPrice}">-->
+<!--                                        <div class="ask-desc sub-content old-price"><span class="text-price" th:text="${product.price}"></span> &#x20AB;</div>-->
+<!--                                        <div class="ask-price "><span class="text-price" th:text="${product.promotionPrice}"></span> &#x20AB;</div>-->
+<!--                                    </th:block>-->
+<!--                                    <th:block th:unless="${product.promotionPrice}">-->
+<!--                                        <div class="ask-desc sub-content">Giá bán ưu đãi</div>-->
+<!--                                        <div class="ask-price "><span class="text-price" th:text="${product.price}"></span> &#x20AB;</div>-->
+<!--                                    </th:block>-->
+<!--                                </div>-->
+<!--                                <div class="buy-text right-content">-->
+<!--                                    <div class="buy-now ">Mua ngay</div>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <div  th:replace="fragment/quantity_control :: quantity_control(1, ${product.id})">Quantity</div>
+                        <div >
+                            <button class="btn btn-primary" id="buttonAdd2Cart">Thêm vào giỏ hàng</button>
                         </div>
                     </div>
                     <hr class="divider mb-1">
 
                     <div class="product-single-share">
-<!--                        <label class="sr-only">Share:</label>-->
+                        <label class="sr-only">Share:</label>
 
-<!--                        <div class="social-icons mr-2">-->
-<!--                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>-->
-<!--                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>-->
-<!--                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>-->
-<!--                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>-->
-<!--                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>-->
-<!--                        </div>&lt;!&ndash; End .social-icons &ndash;&gt;-->
+                        <div class="social-icons mr-2">
+                            <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                            <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                            <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
+                            <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
+                            <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                        </div><!-- End .social-icons -->
 
-<!--                        <a href="#" class="add-wishlist" title="Add to Wishlist">Add to Wishlist</a>-->
+                        <a href="#" class="add-wishlist" title="Add to Wishlist">Add to Wishlist</a>
                     </div><!-- End .product single-share -->
                 </div><!-- End .product-single-details -->
             </div><!-- End .row -->
@@ -296,14 +300,19 @@
 
     <!-- Modals-->
     <th:block th:replace="~{fragment/size_choose_modal :: size-choose-modal}"></th:block>
+    <div th:replace="fragment/fragments :: standard_modal">Standard Modal Dialog</div>
+
 </main><!-- End .main -->
 
 <th:block id="js-resources">
     <script th:src="@{/shop/js/size-choose.js}"></script>
     <script th:src="@{/shop/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/shop/js/plugins.min.js}"></script>
+    <script th:src="@{/shop/js/quantity_control.js}"></script>
+    <script th:src="@{/shop/js/add_to_cart.js}"></script>
 
     <script th:inline="javascript">
+        var productId = [[${product.id}]];
         let sizeVn = [[${sizeVn}]];
 
         let sizeUs = [[${sizeUs}]];
@@ -438,6 +447,7 @@
         //     alert($('input[name=rating]:checked').val());
         // });
     </script>
+
 </th:block>
 </body>
 </html>

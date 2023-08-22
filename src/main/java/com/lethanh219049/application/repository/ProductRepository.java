@@ -22,7 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     Product findByName(String name);
 
     //Lấy sản phẩm theo id
-    Product findById(Long id);
+    @Query(value = "SELECT * FROM product WHERE id=:id", nativeQuery = true)
+    Product findByIdProduct (String id);
 
     //Lấy tất cả sản phẩm
     @Query(value = "SELECT * FROM product pro right join (SELECT DISTINCT p.* FROM product p " +

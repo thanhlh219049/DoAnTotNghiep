@@ -8,12 +8,14 @@ import com.lethanh219049.application.model.request.ChangePasswordRequest;
 import com.lethanh219049.application.model.request.CreateUserRequest;
 import com.lethanh219049.application.model.request.UpdateProfileRequest;
 import com.lethanh219049.application.repository.UserRepository;
+import com.lethanh219049.application.security.CustomUserDetails;
 import com.lethanh219049.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
@@ -78,5 +80,16 @@ public class UserServiceImpl implements UserService {
         user.setAddress(updateProfileRequest.getAddress());
 
         return userRepository.save(user);
+    }
+
+    //login
+    public User getCurrentlyLoggedInCustomer(Authentication authentication){
+        if (authentication == null) return null;
+        User user = null;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof CustomUserDetails) {
+            user = ((CustomUserDetails) principal).getUser();
+        }
+        return user;
     }
 }

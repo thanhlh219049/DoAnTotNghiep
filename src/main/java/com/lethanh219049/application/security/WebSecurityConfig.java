@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 @Configuration
@@ -49,8 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .cors()
                 .and()
-                .csrf()
-                .disable()
                 .authorizeRequests()
                 .antMatchers("/api/order", "/tai-khoan", "/tai-khoan/**", "/api/change-password", "/api/update-profile").authenticated()
                 .antMatchers("/admin/**","/api/admin/**").hasRole("ADMIN")
@@ -67,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(jwtRequestFillter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtRequestFillter, UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable();
     }
 
     @Override
