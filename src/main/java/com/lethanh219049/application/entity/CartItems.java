@@ -27,4 +27,10 @@ public class CartItems {
     private Product product;
 
     private int quantity;
+    private float subtotal;
+
+    @Transient
+    public float getSubtotal(){
+        return this.product.getPrice() * quantity;
+    }
 }

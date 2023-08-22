@@ -48,15 +48,13 @@
                                 </a>
 
                             </div >
-                            <div  th:replace="shop/quantity_control :: quantity_control(${item.quantity}, ${item.product.id})">Quantity</div>
+                            <div  th:replace="fragment/quantity_control :: quantity_control(${item.quantity}, ${item.product.id})">Quantity</div>
                             <div>
                                 <samp>X</samp>
-                                <span>[[${product.price}]]</span>
+                                <span >[[${product.price}]]</span>
                             </div>
                             <div>
-                                <samp >=</samp>
-                                <samp class="h4"> [Subtotal]</samp>
-
+                                <samp >=</samp><samp class="h4 productSubtotal" >[[${item.subtotal}]]<span class="h4">đ</span></samp>
                             </div>
                         </div>
                     </div>
@@ -66,10 +64,10 @@
 
             <div class="col-sm-4" th:unless="${#lists.isEmpty(cartItems)}">
                 <div class="mt-1">
-                    <samp class="h3"> Estimated Total:</samp>
+                    <samp class="h3">Thành tiền:</samp>
                 </div>
                 <div class="mt-1">
-                    <samp class="h2"> [Total Amount]</samp>
+                    <samp class="h2" id="totalAmount"></samp>
                 </div>
                 <div>
                     <button class="btn btn-danger p-3 mt-2">Check out</button>
@@ -82,6 +80,10 @@
     </div>
     <!-- End .container -->
 </main>
+<th:block id="js-resources">
+    <script th:src="@{/shop/js/shopping_cart.js}"></script>
+
+</th:block>
 <!-- End .main -->
 </body>
 </html>

@@ -26,7 +26,7 @@ public class ShoppingCartController {
         List<CartItems> cartItems = cartServices.ListCartItems(customer);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("pageTitle", "Shopping Cart");
-        return "shop/shopping-cart";
+        return "shop/shopping_cart";
     }
 
 }
