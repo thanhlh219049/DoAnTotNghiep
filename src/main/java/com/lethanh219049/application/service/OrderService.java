@@ -32,4 +32,6 @@ public interface OrderService {
     //Đếm số lượng đơn hàng
     long getCountOrder();
 
+    void saveAll(List<Order> orders);
+
 }

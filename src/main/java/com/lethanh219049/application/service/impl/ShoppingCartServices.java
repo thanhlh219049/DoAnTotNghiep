@@ -21,12 +21,12 @@ public class ShoppingCartServices {
         return cartRepo.findByUser(user);
     }
 
-    public Integer addProduct(String productId, Integer quantity, User customer) {
+    public Integer addProduct(String productId, Integer quantity, User customer, int size) {
         Integer addedQuantity = quantity;
 
         Product product = productRepo.findByIdProduct(productId);
 
-        CartItems cartItem = cartRepo.findByUserAndProduct(customer, product);
+        CartItems cartItem = cartRepo.findByUserAndProductAndSize(customer, product, size);
 
         if (cartItem != null) {
             addedQuantity = cartItem.getQuantity() + quantity;
@@ -36,9 +36,28 @@ public class ShoppingCartServices {
             cartItem.setQuantity(quantity);
             cartItem.setUser(customer);
             cartItem.setProduct(product);
+            cartItem.setSize(size);
         }
         cartRepo.save(cartItem);
 
         return addedQuantity;
     }
+
+    public float updateQuantity(Integer quantity, String productId, User customerId, int size){
+        cartRepo.updateQuantity(quantity, productId, customerId.getId(), size);
+        Product product = productRepo.findByIdProduct(productId);
+        float subtotal = product.getPrice() * quantity;
+        return subtotal;
+    }
+
+    public void removeProduct(Long cartItemId){
+        cartRepo.deleteByCustomerAndProduct(cartItemId);
+    }
+
+    public List<CartItems> getListCartItem(Long customerId){
+        List<CartItems> cartItems =
+        cartRepo.getListCartItems(customerId);
+        return cartItems;
+    }
+
 }

@@ -12155,4 +12155,56 @@ section {
 .icon-dark {
     color: #333; /* Đổi màu này thành màu đen hoặc xám bạn mong muốn */
 }
+
+.relative-container {
+    position: relative;
+    /* Thêm các thuộc tính khác tùy theo nhu cầu của bạn */
+}
+
+.section_privacy___content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.white-text {
+    color: white; /* Đặt màu chữ là trắng */
+}
+
+.product-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px 0;
+}
+
+.product-image-col,
+.product-details-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.product-image-container img {
+    max-width: 30px;
+    max-height: 30px;
+    margin-right: 5px;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-details {
+    font-size: 14px;
+    color: #555555;
+}
+
+.product-size {
+    color: #777777;
+    margin-top: 5px;
+}
+
 /*# sourceMappingURL=style.min.css.map */

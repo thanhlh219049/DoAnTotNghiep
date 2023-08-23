@@ -142,7 +142,7 @@
 <!--                                </div>-->
 <!--                            </button>-->
 <!--                        </div>-->
-                        <div  th:replace="fragment/quantity_control :: quantity_control(1, ${product.id})">Quantity</div>
+                        <div  th:replace="fragment/quantity_control :: quantity_control(1, ${product.id}, 1)">Quantity</div>
                         <div >
                             <button class="btn btn-primary" id="buttonAdd2Cart">Thêm vào giỏ hàng</button>
                         </div>
@@ -312,6 +312,7 @@
     <script th:src="@{/shop/js/add_to_cart.js}"></script>
 
     <script th:inline="javascript">
+
         var productId = [[${product.id}]];
         let sizeVn = [[${sizeVn}]];
 

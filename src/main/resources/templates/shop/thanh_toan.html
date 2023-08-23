@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                                     ~{:: title},
+                                                                    'header',
+                                                                    'footer',
+                                                                     ~{:: #css-resources},
+                                                                     ~{:: #js-resources},
+                                                                     ~{:: #main-content}
+                                                                    )}">
+<head>
+    <style>
+    .payment-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .payment-table th, .payment-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .round-button {
+        width: 24px;
+        height: 24px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/shop/css/custom.css}">
+    </th:block>
+</head>
+<body>
+<main class="main" id="main-content">
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="checkout-payment">
+                    <h3 class="step-title">Thông tin người nhận hàng</h3>
+                    <form action="#" method="post">
+                        <div class="form-group required-field">
+                            <label>Tên người nhận</label>
+                            <input type="text" class="form-control" name="receiver_name" required>
+                        </div>
+                        <div class="form-group required-field">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="receiver_email" required>
+                        </div>
+                        <div class="form-group required-field">
+                            <label>Số điện thoại</label>
+                            <input type="tel" class="form-control" name="receiver_phone" required>
+                        </div>
+                        <div>
+                            <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                <option  value="" selected>Chọn tỉnh thành</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
+                        </div>
+                        <!-- Thêm cấp tỉnh, huyện, phường/xã theo yêu cầu -->
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <textarea class="form-control" name="notes"></textarea>
+                        </div>
+
+                        <a th:href="@{/#}">
+                            <button class="btn btn-secondary confirm-btn">Quay lại</button>
+                        </a>
+                        <button type="button" class="btn btn-primary confirm-btn red-btn" id="btn-buy-now">ĐẶT HÀNG</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h3 class="step-title">Phương thức thanh toán</h3>
+                <div class="checkout-payment">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label>Phương thức thanh toán</label>
+                            <table class="payment-table">
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="payment_method" value="cash_on_delivery"> Thanh toán khi giao hàng (COD)
+                                    </td>
+                                    <td>
+                                        <button type="button" class="round-button" onclick="toggleInfo('cod-info')">*</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="payment_method" value="bank_transfer"> Chuyển khoản qua ngân hàng
+                                    </td>
+                                    <td>
+                                        <button type="button" class="round-button" onclick="toggleInfo('bank-info')">*</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="cod-info" class="info-content" style="display:none;">
+                            Bạn chỉ phải thanh toán khi nhận được hàng.
+                        </div>
+                        <div id="bank-info" class="info-content" style="display:none;">
+                            <p>Tài khoản MBBANK chi nhánh Hà Nội</p>
+                            <p>Chủ tài khoản: Lê Hữu Thành</p>
+                            <p>STK: 999999999</p>
+                            <p>Nội dung chuyển khoản: Số điện thoại trong đơn hàng</p>
+                        </div>
+                        <!-- ... -->
+                    </form>
+                </div>
+            </div>
+            <aside class="col-lg-4 sidebar">
+                <h3 class="step-title">Đơn hàng ([[${sizeProduct}]] sản phẩm)</h3>
+                <div class="order-summary">
+                    <div class="collapse show" id="order-cart-section">
+                        <table class="table table-mini-cart">
+                            <tbody>
+                            <th:block th:each="item, status : ${orders}">
+                                <tr class="product-row-10">
+                                    <td class="product-col-10">
+                                        <div class="product-details-container">
+                                            <div class="product-image-container">
+                                                <img th:src="@{${item.product.images[0]}}" th:alt="${item.product.name}">
+                                            </div>
+                                            <div class="product-details">
+                                                <p class="product-size">
+                                                    [[${item.product.name}]] | Size [[${item.size}]] | Số lượng: [[${item.quantity}]]
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
+
+                            <tr>
+                                <td colspan="2">
+                                    <strong class="total-label">Tổng thanh toán:</strong>
+                                </td>
+                                <td class="total-price" colspan="1">
+                                    <span class="total-price-value" style="color: #00BFFF; font-weight: bold;">
+                                        <th:block th:with="formattedTotalPrice=${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}">
+                                            <span th:text="${formattedTotalPrice}"></span> đ
+                                        </th:block>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </aside>
+
+
+
+        </div>
+    </div>
+    <!-- Add your JavaScript scripts here -->
+    </body>
+    <!-- Modals-->
+    <th:block th:replace="~{fragment/size_choose_modal :: size-choose-modal}"></th:block>
+</main><!-- End .main -->
+
+<th:block id="js-resources">
+    <script th:src="@{/shop/js/size-choose.js}"></script>
+    <script th:inline="javascript">
+        function toggleInfo(infoId) {
+            var info = document.getElementById(infoId);
+            if (info.style.display === "none") {
+                info.style.display = "block";
+            } else {
+                info.style.display = "none";
+            }
+        }
+           </script>
+    <script>
+    function toggleInfo(infoId) {
+        var info = document.getElementById(infoId);
+        var otherInfos = document.getElementsByClassName("info-content");
+
+        for (var i = 0; i < otherInfos.length; i++) {
+            if (otherInfos[i].id !== infoId) {
+                otherInfos[i].style.display = "none";
+            }
+        }
+
+        if (info.style.display === "none") {
+            info.style.display = "block";
+        } else {
+            info.style.display = "none";
+        }
+    }
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+	var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+      url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+      method: "GET",
+      responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+      renderCity(result.data);
+    });
+
+    function renderCity(data) {
+      for (const x of data) {
+        citis.options[citis.options.length] = new Option(x.Name, x.Id);
+      }
+      citis.onchange = function () {
+        district.length = 1;
+        ward.length = 1;
+        if(this.value != ""){
+          const result = data.filter(n => n.Id === this.value);
+
+          for (const k of result[0].Districts) {
+            district.options[district.options.length] = new Option(k.Name, k.Id);
+          }
+        }
+      };
+      district.onchange = function () {
+        ward.length = 1;
+        const dataCity = data.filter((n) => n.Id === citis.value);
+        if (this.value != "") {
+          const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+          for (const w of dataWards) {
+            wards.options[wards.options.length] = new Option(w.Name, w.Id);
+          }
+        }
+      };
+    }
+	</script>
+</th:block>
+</body>
+</html>

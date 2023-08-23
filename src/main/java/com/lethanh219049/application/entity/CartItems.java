@@ -27,7 +27,9 @@ public class CartItems {
     private Product product;
 
     private int quantity;
+
     private float subtotal;
+    private int size;
 
     @Transient
     public float getSubtotal(){

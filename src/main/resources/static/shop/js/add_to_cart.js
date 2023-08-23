@@ -5,9 +5,26 @@ $(document).ready(function() {
 });
 
 function addToCart() {
-    var quantity = $("#quantity" + productId).val();
-    var url = "/cart/add/" + productId + "/" + quantity;
+  var size = $(".size-details").text();
+     var regex = /([\d.]+)VN/;
 
+     var match = size.match(regex); // Sử dụng match để tìm kiếm phần khớp với regex
+     var sizeUsOnly = "";
+
+     if (match) {
+         sizeUsOnly = match[1]; // Lấy phần khớp với regex
+         console.log(sizeUsOnly); // In ra kích thước US duy nhất
+     } else {
+         console.log("Không tìm thấy kích thước US");
+     }
+
+     var newQty = parseInt($("#quantity" + productId + 1).val());
+
+     if (isNaN(newQty) || newQty <= 0) {
+         console.log("Số lượng không hợp lệ");
+         return;
+     }
+    var url = "/cart/add/" + productId + "/" + newQty + "/" + sizeUsOnly;
      $.ajax({
             type: "POST",
             url: url,

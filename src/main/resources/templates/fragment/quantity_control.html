@@ -1,18 +1,17 @@
-<div th:fragment="quantity_control(qtyValue, productId)">
+<div th:fragment="quantity_control(qtyValue, productId, sizeUsOnly)">
     <nav>
         <ul class="pagination">
             <li> Số lượng: </li>
             <li class="page-item ">
-                <a class="page-link minusButton" href="" th:pid="${productId}"><b >-</b></a>
+                <a class="page-link minusButton" href="" th:pid="${productId}" th:size="${sizeUsOnly}"><b >-</b></a>
             </li>
             <li class="page-item" >
                 <input type="text" th:value="${qtyValue}" class="form-control text-center"
-                    onkeydown="return false;" style="max-width: 55px"
-                    th:id="'quantity' + ${productId}"
-                />
+                       onkeydown="return false;" style="max-width: 55px"
+                       th:id="'quantity' + ${productId} + 1" />
             </li>
             <li class="page-item">
-                <a class="page-link plusButton" href="#" th:pid="${productId}"><b>+</b></a>
+                <a class="page-link plusButton" href="#" th:pid="${productId}" th:size="${sizeUsOnly}"><b>+</b></a>
             </li>
         </ul>
     </nav>

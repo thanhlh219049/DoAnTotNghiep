@@ -323,6 +323,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.count();
     }
 
+    @Override
+    public void saveAll(List<Order> orders) {
+         orderRepository.saveAll(orders);
+    }
+
     public void statistic(long amount, int quantity, Order order) {
         Statistic statistic = statisticRepository.findByCreatedAT();
         if (statistic != null){

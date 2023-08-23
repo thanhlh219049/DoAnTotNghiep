@@ -11,7 +11,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
 <main class="main" id="main-content">
@@ -28,16 +29,27 @@
         <div class="row m-1">
             <div class="col-sm-8">
                 <th:block th:each="item, status : ${cartItems}">
-                    <div class="row border rounded" th:with="product = ${item.product}">
+                    <div class="row border rounded" th:with="product = ${item.product}"
+                            th:id="'row' + ${status.count}">
+<!--                        <div class="col-1">-->
+<!--                            <div> [[${status.count}]]</div>-->
+<!--                            <div>-->
+<!--                                <a class="fas fa-trash icon-dark link-remove"-->
+<!--                                   th:rowNumber="${status.count}"-->
+<!--                                   th:href="@{'/cart/remove/' + ${product.id}}"> xóa-->
+
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
                         <div class="col-1">
-                            <div> [[${status.count}]]</div>
+                            <div>[[${status.count}]]</div>
                             <div>
-                                <a class="icon-dark" th:href="@{/}">
-                                    <i class="fas fa-trash"></i> Xóa
+                                <a class="icon-dark link-remove" th:rowNumber="${status.count}" th:href="@{'/cart/remove/' + ${item.id}}">
+                                    <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
                         </div>
-
                         <div class="col-3">
                             <img th:src="@{${product.images[0]}}" class="img-fluid" />
                         </div>
@@ -48,13 +60,20 @@
                                 </a>
 
                             </div >
-                            <div  th:replace="fragment/quantity_control :: quantity_control(${item.quantity}, ${item.product.id})">Quantity</div>
+                            <div  th:replace="fragment/quantity_control :: quantity_control(${item.quantity}, ${item.product.id}, ${item.size})">Quantity</div>
                             <div>
-                                <samp>X</samp>
+                                <samp>Giá sản phẩm: </samp>
                                 <span >[[${product.price}]]</span>
                             </div>
                             <div>
-                                <samp >=</samp><samp class="h4 productSubtotal" >[[${item.subtotal}]]<span class="h4">đ</span></samp>
+                                <samp> Size: </samp>
+                                <samp>[[${item.size}]]</samp>
+                            </div>
+                            <div>
+                                <samp >Thành tiền: </samp>
+                                <samp th:id="'subtotal' + ${product.id}"
+                                      class="h4 productSubtotal" >[[${item.subtotal}]]</samp>
+                                <span class="h4">đ</span>
                             </div>
                         </div>
                     </div>
@@ -64,25 +83,37 @@
 
             <div class="col-sm-4" th:unless="${#lists.isEmpty(cartItems)}">
                 <div class="mt-1">
-                    <samp class="h3">Thành tiền:</samp>
+                    <samp class="h3">Tổng tiền:</samp>
                 </div>
                 <div class="mt-1">
                     <samp class="h2" id="totalAmount"></samp>
                 </div>
                 <div>
-                    <button class="btn btn-danger p-3 mt-2">Check out</button>
+                    <button class="btn btn-primary p-3 mt-2">
+                        <a th:href="@{/cart/payment}" style="color: white;">Thanh toán</a>
+                    </button>
                 </div>
+
             </div>
         </div>
         <div th:if="${#lists.isEmpty(cartItems)}">
             <h4>Không có sản phẩm nào trong giỏ hàng. Quay lại cửa hàng để tiếp tục mua sắm.</h4>
         </div>
+
+   </div>
+
     </div>
-    <!-- End .container -->
+    <th:block th:replace="~{fragment/size_choose_modal :: size-choose-modal}"></th:block>
+    <div th:replace="fragment/fragments :: standard_modal">Standard Modal Dialog</div>
 </main>
 <th:block id="js-resources">
     <script th:src="@{/shop/js/shopping_cart.js}"></script>
+    <script th:src="@{/shop/js/size-choose.js}"></script>
+    <script th:src="@{/shop/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/shop/js/plugins.min.js}"></script>
+    <script th:inline="javascript">
 
+    </script>
 </th:block>
 <!-- End .main -->
 </body>
