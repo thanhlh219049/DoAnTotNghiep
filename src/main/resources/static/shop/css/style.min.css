@@ -10968,7 +10968,7 @@ tbody .product-col {
 }
 
 .table-mini-cart tr td {
-    padding: 2rem 0;
+    padding: 1rem 0;
     border: 0;
     border-bottom: 1px solid #ccc;
     vertical-align: top
@@ -12190,6 +12190,11 @@ section {
     max-height: 30px;
     margin-right: 5px;
 }
+.product-image-container11 img {
+    max-width: 75px;
+    max-height: 75px;
+    margin-right: 5px;
+}
 
 .product-title {
     font-size: 16px;
@@ -12205,6 +12210,15 @@ section {
 .product-size {
     color: #777777;
     margin-top: 5px;
+}
+
+.product-row-10 tr td {
+    padding: 0px;
+    border-bottom: none;
+}
+
+.lable-td {
+    width: 45%;
 }
 
 /*# sourceMappingURL=style.min.css.map */

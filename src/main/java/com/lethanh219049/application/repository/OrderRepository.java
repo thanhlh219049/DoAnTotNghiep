@@ -31,4 +31,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 //    int countByProductIds(String id);
 
     int countByProductId(String id);
+
+    @Query(value = "SELECT * FROM orders where id = ?1", nativeQuery = true)
+    Order getListOrderById(Long id);
+
 }

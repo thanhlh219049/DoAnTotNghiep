@@ -22,8 +22,8 @@ public interface CartItemRepository extends JpaRepository<CartItems, Long> {
     public CartItems findByUserAndProductAndSize(User customer, Product product, int size);
     @Transactional
     @Modifying
-    @Query(value = "UPDATE cart_items c SET c.quantity = ?1 WHERE c.product_id = ?2 AND c.user_id = ?3 AND c.size = ?4", nativeQuery = true)
-    void updateQuantity(Integer quantity, String productId, Long customerId, int size);
+    @Query(value = "UPDATE cart_items c SET c.quantity = ?1 WHERE c.product_id = ?2 AND c.user_id = ?3 AND c.size = ?4 AND c.id = ?5", nativeQuery = true)
+    void updateQuantity(Integer quantity, String productId, Long customerId, int size, Long id);
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM cart_items WHERE id = ?1", nativeQuery = true)

@@ -20,6 +20,7 @@ public interface OrderService {
     void updateDetailOrder(UpdateDetailOrder updateDetailOrder, long id, long userId);
 
     Order findOrderById(long id);
+    List<Order> findOrderByUserId(List<Long> orderIds);
 
     void updateStatusOrder(UpdateStatusOrderRequest updateStatusOrderRequest, long orderId, long userId);
 

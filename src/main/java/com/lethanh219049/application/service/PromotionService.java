@@ -31,4 +31,6 @@ public interface PromotionService {
 
     //Lấy khuyến mại đang chạy và còn thời hạn
     List<Promotion> getAllValidPromotion();
+
+
 }

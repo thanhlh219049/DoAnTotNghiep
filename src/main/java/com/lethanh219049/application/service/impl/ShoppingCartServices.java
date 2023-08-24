@@ -43,8 +43,8 @@ public class ShoppingCartServices {
         return addedQuantity;
     }
 
-    public float updateQuantity(Integer quantity, String productId, User customerId, int size){
-        cartRepo.updateQuantity(quantity, productId, customerId.getId(), size);
+    public float updateQuantity(Integer quantity, String productId, User customerId, int size, Long id){
+        cartRepo.updateQuantity(quantity, productId, customerId.getId(), size, id);
         Product product = productRepo.findByIdProduct(productId);
         float subtotal = product.getPrice() * quantity;
         return subtotal;

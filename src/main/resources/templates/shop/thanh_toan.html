@@ -9,7 +9,12 @@
                                                                      ~{:: #main-content}
                                                                     )}">
 <head>
+
     <style>
+
+    .table-mini-cart tr td{
+        padding:0px
+    }
     .payment-table {
         border-collapse: collapse;
         width: 100%;
@@ -48,82 +53,125 @@
                     <h3 class="step-title">Thông tin người nhận hàng</h3>
                     <form action="#" method="post">
                         <div class="form-group required-field">
-                            <label>Tên người nhận</label>
-                            <input type="text" class="form-control" name="receiver_name" required>
-                        </div>
+                            <label>Tên người nhận </label>
+                            <input type="text" class="form-control" th:value="${user_fullname}" name="receiver_name" id="receiver_name" required>
+                            <div class="invalid-feedback"></div>
+                        </div><!-- End .form-group -->
+
                         <div class="form-group required-field">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="receiver_email" required>
-                        </div>
+                            <label>Số điện thoại </label>
+                            <input type="text" class="form-control" th:value="${user_phone}" name="receiver_phone" id="receiver_phone">
+                            <div class="invalid-feedback"></div>
+                        </div><!-- End .form-group -->
+
                         <div class="form-group required-field">
-                            <label>Số điện thoại</label>
-                            <input type="tel" class="form-control" name="receiver_phone" required>
-                        </div>
-                        <div>
-                            <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                <option  value="" selected>Chọn tỉnh thành</option>
+                            <label>Địa chỉ nhận hàng</label>
+                            <textarea type="text" class="form-control" name="receiver_address" id="receiver_address" required></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div><!-- End .form-group -->
+
+                        <div  >
+                            <label>Chọn tỉnh thành</label>
+                            <select  class=" form-control" id="city">
+                                <option value="" selected></option>
                             </select>
                         </div>
-                        <div>
-                            <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn quận huyện</option>
+
+                        <div  >
+                            <label>Chọn quận huyện</label>
+                            <select  class="form-control" id="district">
+                                <option value="" selected></option>
                             </select>
                         </div>
-                        <div>
-                            <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn phường xã</option>
+
+                        <div  >
+                            <label>Chọn phường xã</label>
+                            <select  class="form-control" id="ward">
+                                <option value="" selected></option>
                             </select>
                         </div>
                         <!-- Thêm cấp tỉnh, huyện, phường/xã theo yêu cầu -->
                         <div class="form-group">
-                            <label>Ghi chú</label>
-                            <textarea class="form-control" name="notes"></textarea>
-                        </div>
+                            <label>Ghi chú </label>
+                            <textarea type="text" class="form-control" id="note"></textarea>
+                        </div><!-- End .form-group -->
 
-                        <a th:href="@{/#}">
-                            <button class="btn btn-secondary confirm-btn">Quay lại</button>
-                        </a>
-                        <button type="button" class="btn btn-primary confirm-btn red-btn" id="btn-buy-now">ĐẶT HÀNG</button>
+<!--                        <a th:href="@{/cart}">-->
+<!--                            <button class="btn btn-secondary confirm-btn">Quay lại</button>-->
+<!--                        </a>-->
+                        <button type="button" class="btn btn-primary confirm-btn red-btn" id="btn-buy-now" th:style="${notFoundSize} ? 'display:none': ''">ĐẶT HÀNG</button>
                     </form>
                 </div>
             </div>
             <div class="col-lg-4">
                 <h3 class="step-title">Phương thức thanh toán</h3>
-                <div class="checkout-payment">
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label>Phương thức thanh toán</label>
-                            <table class="payment-table">
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="payment_method" value="cash_on_delivery"> Thanh toán khi giao hàng (COD)
-                                    </td>
-                                    <td>
-                                        <button type="button" class="round-button" onclick="toggleInfo('cod-info')">*</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="payment_method" value="bank_transfer"> Chuyển khoản qua ngân hàng
-                                    </td>
-                                    <td>
-                                        <button type="button" class="round-button" onclick="toggleInfo('bank-info')">*</button>
-                                    </td>
-                                </tr>
-                            </table>
+                <section class="section">
+                    <div class="section__header">
+                        <div class="layout-flex">
+                            <h3 class="section__title layout-flex__item layout-flex__item--stretch">
+                                <i class="fa fa-credit-card fa-lg section__title--icon hide-on-desktop"></i>
+                                Thanh toán
+                            </h3>
                         </div>
-                        <div id="cod-info" class="info-content" style="display:none;">
-                            Bạn chỉ phải thanh toán khi nhận được hàng.
+                    </div>
+                    <div class="section__content">
+
+                        <div class="content-box" data-define="{paymentMethod: undefined}">
+
+
+                            <div class="content-box__row">
+                                <div class="radio-wrapper">
+                                    <div class="radio__input">
+                                        <input name="paymentMethod" id="paymentMethod-412668" type="radio" class="input-radio" data-bind="paymentMethod" value="412668">
+                                    </div>
+                                    <label for="paymentMethod-412668" class="radio__label">
+                                        <button type="button" class="round-button" onclick="toggleInfo('cod-info')">Thanh toán khi giao hàng (COD)</button>
+<!--                                        <span class="radio__label__primary">Thanh toán khi giao hàng (COD)</span>-->
+                                        <span class="radio__label__accessory">
+															<span class="radio__label__icon">
+																<i class="payment-icon payment-icon--4"></i>
+															</span>
+														</span>
+                                    </label>
+                                </div>
+
+                                <div id="cod-info"  class="content-box__row__desc hide" data-bind-show="paymentMethod == 412668">
+
+                                    <p>Bạn chỉ phải thanh toán khi nhận được hàng.</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="content-box__row">
+                                <div class="radio-wrapper">
+                                    <div class="radio__input">
+                                        <input name="paymentMethod" id="paymentMethod-412237" type="radio" class="input-radio" data-bind="paymentMethod" value="412237">
+                                    </div>
+                                    <label for="paymentMethod-412237" class="radio__label">
+                                        <button type="button" class="round-button" onclick="toggleInfo('bank-info')">Chuyển khoản qua ngân hàng</button>
+<!--                                        <span >Chuyển khoản qua ngân hàng</span>-->
+                                        <span class="radio__label__accessory">
+															<span class="radio__label__icon">
+																<i class="payment-icon payment-icon--5"></i>
+															</span>
+														</span>
+                                    </label>
+                                </div>
+
+                                <div id="bank-info" class="content-box__row__desc" data-bind-show="paymentMethod == 412237">
+                                    <p>Tài khoản MBank chi nhánh Hà Nội
+                                    </p> <p>- Chủ tài khoản: LE HUU THANH
+                                </p> <p>- STK: 99999999999999
+                                </p> <br> <p>Nội dung chuyển khoản: Số điện thoại trong đơn hàng</p>
+
+                                </div>
+
+                            </div>
+
                         </div>
-                        <div id="bank-info" class="info-content" style="display:none;">
-                            <p>Tài khoản MBBANK chi nhánh Hà Nội</p>
-                            <p>Chủ tài khoản: Lê Hữu Thành</p>
-                            <p>STK: 999999999</p>
-                            <p>Nội dung chuyển khoản: Số điện thoại trong đơn hàng</p>
-                        </div>
-                        <!-- ... -->
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
             <aside class="col-lg-4 sidebar">
                 <h3 class="step-title">Đơn hàng ([[${sizeProduct}]] sản phẩm)</h3>
@@ -132,34 +180,57 @@
                         <table class="table table-mini-cart">
                             <tbody>
                             <th:block th:each="item, status : ${orders}">
-                                <tr class="product-row-10">
-                                    <td class="product-col-10">
-                                        <div class="product-details-container">
-                                            <div class="product-image-container">
-                                                <img th:src="@{${item.product.images[0]}}" th:alt="${item.product.name}">
-                                            </div>
-                                            <div class="product-details">
-                                                <p class="product-size">
-                                                    [[${item.product.name}]] | Size [[${item.size}]] | Số lượng: [[${item.quantity}]]
-                                                </p>
-                                            </div>
-                                        </div>
+                                <tr class="product-row-10" th:attr="data-order-id=${item.id}">
+                                    <td style="width: 25%">
+                                        <img th:src="@{${item.product.images[0]}}" th:alt="${item.product.name}" style="width:75px; height:75px; padding-right:10px">
+                                    </td>
+                                    <td style="width: 73%">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="lable-td">
+                                                        <Strong>Sản Phẩm:</Strong>
+                                                    </td>
+                                                    <td>
+                                                        [[${item.product.name}]]
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="lable-td">
+                                                        <Strong>Size:</Strong>
+                                                    </td>
+                                                    <td>
+                                                        [[${item.size}]]
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="lable-td">
+                                                        <Strong>Số lượng:</Strong>
+                                                    </td>
+                                                    <td>
+                                                        [[${item.quantity}]]
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
-                            </th:block>
 
+                            </th:block>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <strong class="total-label">Tổng thanh toán:</strong>
                                 </td>
-                                <td class="total-price" colspan="1">
-                                    <span class="total-price-value" style="color: #00BFFF; font-weight: bold;">
+                                <td class="total-price">
+                                    <span class="total-price-value" style="color: #00BFFF; font-weight: bold; position: absolute; right: 50px;">
                                         <th:block th:with="formattedTotalPrice=${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}">
                                             <span th:text="${formattedTotalPrice}"></span> đ
                                         </th:block>
                                     </span>
                                 </td>
                             </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -177,7 +248,32 @@
 </main><!-- End .main -->
 
 <th:block id="js-resources">
+    <script>
+    const citySelect = document.getElementById('city');
+    const districtSelect = document.getElementById('district');
+    const wardSelect = document.getElementById('ward');
+    const addressTextarea = document.getElementById('receiver_address');
+
+    // Sự kiện khi chọn tỉnh thành
+    citySelect.addEventListener('change', updateAddress);
+
+    // Sự kiện khi chọn quận huyện
+    districtSelect.addEventListener('change', updateAddress);
+
+    // Sự kiện khi chọn phường xã
+    wardSelect.addEventListener('change', updateAddress);
+
+    // Hàm cập nhật địa chỉ dựa trên giá trị các select
+    function updateAddress() {
+        const city = citySelect.options[citySelect.selectedIndex].text;
+        const district = districtSelect.options[districtSelect.selectedIndex].text;
+        const ward = wardSelect.options[wardSelect.selectedIndex].text;
+
+        addressTextarea.value = city + ' - ' + district + ' - ' + ward;
+    }
+    </script>
     <script th:src="@{/shop/js/size-choose.js}"></script>
+    <script th:src="@{/shop/js/shopping_cart.js}"></script>
     <script th:inline="javascript">
         function toggleInfo(infoId) {
             var info = document.getElementById(infoId);
@@ -187,7 +283,9 @@
                 info.style.display = "none";
             }
         }
-           </script>
+
+
+    </script>
     <script>
     function toggleInfo(infoId) {
         var info = document.getElementById(infoId);

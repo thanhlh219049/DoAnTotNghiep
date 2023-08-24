@@ -24,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -169,6 +170,19 @@ public class OrderServiceImpl implements OrderService {
         }
         return order.get();
     }
+    @Override
+    public List<Order> findOrderByUserId(List<Long> orderIds) {
+        List<Order> orders = new ArrayList<>();
+
+        orderIds.forEach(aLong -> {
+            Order order = orderRepository.getListOrderById(aLong);
+            orders.add(order);
+        });
+        if (orders.isEmpty()) {
+            throw new NotFoundException("Đơn hàng không tồn tại");
+        }
+        return orders;
+    }
 
     @Override
     public void updateStatusOrder(UpdateStatusOrderRequest updateStatusOrderRequest, long orderId, long userId) {
@@ -265,6 +279,7 @@ public class OrderServiceImpl implements OrderService {
                 if (SIZE_VN.get(i) == dto.getSizeVn()) {
                     dto.setSizeUs(SIZE_US[i]);
                     dto.setSizeCm(SIZE_CM[i]);
+
                 }
             }
         }

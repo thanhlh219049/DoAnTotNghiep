@@ -1,24 +1,36 @@
 package com.lethanh219049.application.controller.shop;
 
-import com.lethanh219049.application.entity.CartItems;
-import com.lethanh219049.application.entity.Order;
-import com.lethanh219049.application.entity.User;
+import com.lethanh219049.application.entity.*;
+import com.lethanh219049.application.exception.BadRequestException;
+import com.lethanh219049.application.exception.NotFoundException;
+import com.lethanh219049.application.model.request.CreateOrderRequest;
+import com.lethanh219049.application.model.request.CreateOrderRes;
+import com.lethanh219049.application.security.CustomUserDetails;
 import com.lethanh219049.application.service.OrderService;
+import com.lethanh219049.application.service.ProductService;
 import com.lethanh219049.application.service.UserService;
 import com.lethanh219049.application.service.impl.ShoppingCartServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static com.lethanh219049.application.config.Constant.ORDER_STATUS;
 
 @Controller
 public class ShoppingCartController {
@@ -30,6 +42,34 @@ public class ShoppingCartController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ProductService productService;
+
+
+    //Thanh toan don hang
+    @PostMapping("/cart/payment/order")
+    public ResponseEntity<Object> createOrder(@Valid @RequestBody CreateOrderRes lstCreateOrderRes,
+                                              Authentication authentication) {
+
+        User user = userService.getCurrentlyLoggedInCustomer(authentication);
+        List<Order> orders = orderService.findOrderByUserId(lstCreateOrderRes.getOrderIds());
+
+        orders.forEach(order -> {
+            User userDto = new User();
+            user.setId(user.getId());
+            order.setCreatedBy(user);
+            order.setBuyer(user);
+            order.setReceiverName(lstCreateOrderRes.getReceiverName());
+            order.setReceiverPhone(lstCreateOrderRes.getReceiverPhone());
+            order.setReceiverAddress(lstCreateOrderRes.getReceiverAddress());
+            order.setNote(lstCreateOrderRes.getNote());
+            order.setStatus(ORDER_STATUS);
+        });
+        orderService.saveAll(orders);
+
+        return ResponseEntity.ok("");
+    }
 
     @GetMapping("/cart")
     public String showShoppingCart(Model model, Authentication authentication){

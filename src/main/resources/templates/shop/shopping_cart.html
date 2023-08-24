@@ -60,7 +60,7 @@
                                 </a>
 
                             </div >
-                            <div  th:replace="fragment/quantity_control :: quantity_control(${item.quantity}, ${item.product.id}, ${item.size})">Quantity</div>
+                            <div  th:replace="fragment/quantity_giohang :: quantity_giohang(${item.quantity}, ${item.product.id}, ${item.size} , ${item.id})">Quantity</div>
                             <div>
                                 <samp>Giá sản phẩm: </samp>
                                 <span >[[${product.price}]]</span>
