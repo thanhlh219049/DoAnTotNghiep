@@ -10,38 +10,12 @@
                                                                     )}">
 <head>
 
-    <style>
-
-    .table-mini-cart tr td{
-        padding:0px
-    }
-    .payment-table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    .payment-table th, .payment-table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: left;
-    }
-
-    .round-button {
-        width: 24px;
-        height: 24px;
-        border: 1px solid #000;
-        border-radius: 50%;
-        background-color: #fff;
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-    }
-</style>
-    <meta charset="UTF-8">
+       <meta charset="UTF-8">
     <title>Thanh toán</title>
     <th:block id="css-resources">
         <link rel="stylesheet" th:href="@{/shop/css/custom.css}">
     </th:block>
+
 </head>
 <body>
 <main class="main" id="main-content">
@@ -66,30 +40,31 @@
 
                         <div class="form-group required-field">
                             <label>Địa chỉ nhận hàng</label>
-                            <textarea type="text" class="form-control" name="receiver_address" id="receiver_address" required></textarea>
+                            <input type="text" class="form-control" name="receiver_address" id="receiver_address" required>
                             <div class="invalid-feedback"></div>
                         </div><!-- End .form-group -->
 
-                        <div  >
-                            <label>Chọn tỉnh thành</label>
-                            <select  class=" form-control" id="city">
-                                <option value="" selected></option>
-                            </select>
-                        </div>
+                        <label>Chọn tỉnh thành</label>
+                        <select  class="form-control" id="city">
+                            <option value="" selected></option>
+                        </select>
 
-                        <div  >
-                            <label>Chọn quận huyện</label>
-                            <select  class="form-control" id="district">
-                                <option value="" selected></option>
-                            </select>
-                        </div>
+                        <label>Chọn quận huyện</label>
+                        <select  class="form-control" id="district">
+                            <option value="" selected></option>
+                        </select>
 
-                        <div  >
-                            <label>Chọn phường xã</label>
-                            <select  class="form-control" id="ward">
-                                <option value="" selected></option>
-                            </select>
-                        </div>
+                        <label>Chọn phường xã</label>
+                        <select  class="form-control" id="ward">
+                            <option value="" selected></option>
+                        </select>
+
+                        <div class="form-group required-field">
+                            <label>Đường thôn </label>
+                            <input type="text" class="form-control" name="duong_thon" id="duong_thon" required>
+                            <div class="invalid-feedback"></div>
+                        </div><!-- End .form-group -->
+
                         <!-- Thêm cấp tỉnh, huyện, phường/xã theo yêu cầu -->
                         <div class="form-group">
                             <label>Ghi chú </label>

@@ -31,16 +31,6 @@
                 <th:block th:each="item, status : ${cartItems}">
                     <div class="row border rounded" th:with="product = ${item.product}"
                             th:id="'row' + ${status.count}">
-<!--                        <div class="col-1">-->
-<!--                            <div> [[${status.count}]]</div>-->
-<!--                            <div>-->
-<!--                                <a class="fas fa-trash icon-dark link-remove"-->
-<!--                                   th:rowNumber="${status.count}"-->
-<!--                                   th:href="@{'/cart/remove/' + ${product.id}}"> xóa-->
-
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
 
                         <div class="col-1">
                             <div>[[${status.count}]]</div>
