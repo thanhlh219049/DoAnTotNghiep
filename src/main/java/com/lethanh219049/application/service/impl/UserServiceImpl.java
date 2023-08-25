@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     //login
     public User getCurrentlyLoggedInCustomer(Authentication authentication){
-        if (authentication == null) throw new RuntimeException();
+        if (authentication == null) return null;
         User user = null;
         Object principal = authentication.getPrincipal();
         if (principal instanceof CustomUserDetails) {

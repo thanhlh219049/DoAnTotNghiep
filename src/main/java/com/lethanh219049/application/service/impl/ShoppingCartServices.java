@@ -21,6 +21,10 @@ public class ShoppingCartServices {
         return cartRepo.findByUser(user);
     }
 
+    public void deleteAll(List<CartItems> cartItems){
+        cartRepo.deleteAll(cartItems);
+    }
+
     public Integer addProduct(String productId, Integer quantity, User customer, int size) {
         Integer addedQuantity = quantity;
 

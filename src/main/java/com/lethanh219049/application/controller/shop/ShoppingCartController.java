@@ -46,13 +46,17 @@ public class ShoppingCartController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserService customerService;
+
 
     //Thanh toan don hang
     @PostMapping("/cart/payment/order")
     public ResponseEntity<Object> createOrder(@Valid @RequestBody CreateOrderRes lstCreateOrderRes,
                                               Authentication authentication) {
 
-        User user = userService.getCurrentlyLoggedInCustomer(authentication);
+        User user = customerService.getCurrentlyLoggedInCustomer(authentication);
+
         List<Order> orders = orderService.findOrderByUserId(lstCreateOrderRes.getOrderIds());
 
         orders.forEach(order -> {
@@ -68,11 +72,15 @@ public class ShoppingCartController {
         });
         orderService.saveAll(orders);
 
+        List<CartItems> cartItems = cartServices.ListCartItems(user);
+        cartServices.deleteAll(cartItems);
+
         return ResponseEntity.ok("");
     }
 
     @GetMapping("/cart")
     public String showShoppingCart(Model model, Authentication authentication){
+
         User customer = userService.getCurrentlyLoggedInCustomer(authentication);
         List<CartItems> cartItems = cartServices.ListCartItems(customer);
         model.addAttribute("cartItems", cartItems);
@@ -83,6 +91,8 @@ public class ShoppingCartController {
 
     @GetMapping("/cart/payment")
     public String getListCartItem(Model model, Authentication authentication){
+        User user = customerService.getCurrentlyLoggedInCustomer(authentication);
+
         User customer = userService.getCurrentlyLoggedInCustomer(authentication);
         List<CartItems> cartItems = cartServices.ListCartItems(customer);
         List<Order> orders = new ArrayList<>();
